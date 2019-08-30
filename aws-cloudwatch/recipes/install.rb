@@ -50,7 +50,6 @@ end
 
 execute 'run this' do
   creates "#{node['aws_cloudwatch']['path']}/etc/amazon-cloudwatch-agent.json"
-  source 'awslogs.conf.erb'
   command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s"
 end
 
