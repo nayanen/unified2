@@ -4,7 +4,7 @@
 #
 
 # AWS Credentials
-default['aws_cloudwatch']['region'] = us-east-1
+default['aws_cloudwatch']['region'] = 'us-east-1'
 default['aws_cloudwatch']['aws_access_key_id'] = nil
 default['aws_cloudwatch']['aws_secret_access_key'] = nil
 
