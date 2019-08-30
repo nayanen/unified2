@@ -23,7 +23,6 @@ end
 
 package 'unzip'
 package 'python'
-package 'epel-release' if node[:platform_family] == 'rhel'
 package 'python-pip' if node[:platform_family] == 'rhel'
 
 # unzip package
