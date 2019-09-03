@@ -49,7 +49,7 @@ end
 
 #install aws unified cloudwatch agent
 execute 'Install CloudWatch Agent' do
-   command "rpm -i ./amazon-cloudwatch-agent.rpm"
+   command "sh ./install.sh"
    creates "#{node['aws_cloudwatch']['path']}/etc/amazon-cloudwatch-agent.json"
    command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s"
 end
