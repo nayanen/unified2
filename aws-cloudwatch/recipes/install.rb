@@ -3,7 +3,7 @@
 # Recipe:: install
 #
 
-resource_name :aws_cloudwatch_agent
+resource_name :aws_cloudwatch_log
 
 #property :config, String
 #property :json_config, String
@@ -11,7 +11,7 @@ resource_name :aws_cloudwatch_agent
 
 #default_action :install
 
-#    provides :aws_cloudwatch_agent
+#provides :aws_cloudwatch_agent
 
 if node['aws_cloudwatch']['region'].nil?
   if node['ec2'] && node['ec2']['region']
