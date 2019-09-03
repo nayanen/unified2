@@ -3,10 +3,6 @@
 # Recipe:: install
 #
 
-aws_cloudwatch_log 'build file' do
-  action :create
-end
-
 #provides :aws_cloudwatch_agent
 
 if node['aws_cloudwatch']['region'].nil?
@@ -55,9 +51,17 @@ end
 
 
 #install aws unified cloudwatch agent
-rpm_package 'amazon-cloudwatch-agent.rpm' do
-  source "/tmp/amazon-cloudwatch-agent.rpm"
-  action :install
+#rpm_package 'amazon-cloudwatch-agent.rpm' do
+#  source "/tmp/amazon-cloudwatch-agent.rpm"
+#  action :install
+#end
+
+template '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json' do
+  source 'awslogs.conf.erb'
+end
+
+execute 'run this' do
+  command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s"
 end
 
 #execute aws unified cloudwatch agent
