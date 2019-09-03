@@ -9,7 +9,7 @@ resource_name :aws_cloudwatch_log
 #property :json_config, String
 #property :config_params, Hash, default: {'param' => 'value'}
 
-#default_action :install
+default_action :install
 
 #provides :aws_cloudwatch_agent
 
