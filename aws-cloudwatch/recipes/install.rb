@@ -3,30 +3,8 @@
 # Recipe:: install
 #
 
-action :create do
-  # As we're using the accumulator pattern we need to shove everything
-  # into the root run context so each of the sections can find the parent
-  Chef::Log.info "Adding configuration for #{cookbook_name}"
-  with_run_context :root do
-    edit_resource(:template, node['aws_cloudwatch']['config_file']) do |new_resource|
-      self.cookbook_name = 'aws-cloudwatch'
-      source 'awslogs.conf.erb'
-      variables[:logs] ||= []
-      variables[:logs].push({
-        log_file: new_resource.log_file,
-        log_group_name: new_resource.log_group_name,
-        log_stream_name: new_resource.log_stream_name,
-        timezone: new_resource.timezone,
-        timestamp_format: new_resource.timestamp_format,
-        encoding: new_resource.encoding
-    })
-
-
-      action :nothing
-      delayed_action :create
-      notifies :restart, 'service[amazon-cloudwatch-agent]', :delayed
-    end
-  end
+aws_cloudwatch_log 'build file' do
+  action :create
 end
 
 #provides :aws_cloudwatch_agent
