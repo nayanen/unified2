@@ -47,11 +47,22 @@ end
  #  command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s"
 #end
 
+##install aws unified cloudwatch agent
+#execute 'Install CloudWatch Agent' do
+#   command "sudo sh ./install.sh"
+#   creates "#{node['aws_cloudwatch']['path']}/etc/amazon-cloudwatch-agent.json"
+#   command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s"
+#end
+
 #install aws unified cloudwatch agent
-execute 'Install CloudWatch Agent' do
-   command "sudo sh ./install.sh"
-   creates "#{node['aws_cloudwatch']['path']}/etc/amazon-cloudwatch-agent.json"
-   command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s"
+rpm_package 'amazon-cloudwatch-agent.rpm' do
+  source "/tmp/amazon-cloudwatch-agent.rpm"
+  action :install
+end
+
+#execute aws unified cloudwatch agent
+execute 'Exec CloudWatch Agent' do
+   command "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:configuration-file-path -s"
 end
 
 # restart the agent service in the end to ensure that
