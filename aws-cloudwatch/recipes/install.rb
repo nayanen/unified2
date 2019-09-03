@@ -3,6 +3,16 @@
 # Recipe:: install
 #
 
+resource_name :aws_cloudwatch_agent
+
+#property :config, String
+#property :json_config, String
+#property :config_params, Hash, default: {'param' => 'value'}
+
+#default_action :install
+
+#    provides :aws_cloudwatch_agent
+
 if node['aws_cloudwatch']['region'].nil?
   if node['ec2'] && node['ec2']['region']
     node.normal['aws_cloudwatch']['region'] = node['ec2']['region']
