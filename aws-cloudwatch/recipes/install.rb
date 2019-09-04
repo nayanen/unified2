@@ -51,10 +51,10 @@ end
 
 
 #install aws unified cloudwatch agent
-#rpm_package 'amazon-cloudwatch-agent.rpm' do
-#  source "/tmp/amazon-cloudwatch-agent.rpm"
-#  action :install
-#end
+rpm_package 'amazon-cloudwatch-agent.rpm' do
+  source "/tmp/amazon-cloudwatch-agent.rpm"
+  action :install
+end
 
 template '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json' do
   source 'awslogs.conf.erb'
